@@ -1,0 +1,5 @@
+,US URL,https://fred.stlouisfed.org/categories/32267,,,
+,,,,,
+Family,Id,Name,Units,Frequency,Url
+GDP/GNP,GDP,Gross Domestic Product ,"Billions of Dollars, Seasonally Adjusted Annual Rate",Quarterly ,https://fred.stlouisfed.org/series/GDP
+GDP/GNP,A191RP1Q027SBEA ,Gross Domestic Product ,"Percent Change from Preceding Period, Seasonally Adjusted Annual Rate",Quarterly ,https://fred.stlouisfed.org/series/A191RP1Q027SBEA

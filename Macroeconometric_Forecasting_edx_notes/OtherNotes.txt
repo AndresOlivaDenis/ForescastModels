@@ -1,0 +1,45 @@
+# https://en.wikipedia.org/wiki/Box%E2%80%93Jenkins_method#Identify_p_and_q
+
+# migth be usefull as reference:
+# https://www.jdeconomics.com/arima-model-in-eviews/
+#       https://www.youtube.com/watch?v=ukGJ0sLgbqI
+
+
+# Identification goals:
+# 	Archive significan coeffieients in regression model
+#	Archieve the lowest fit vs parsimony criteria
+#	White noise residuals -> eliminate autocorrelation in the residuals (also check for zero mean, or mean << var)
+
+# Identification ToDO_:
+#	Graph data. (level, 1st difference, 2nd difference ?)
+#	ACF & PACF ? (leval, 1st difference, 2nd difference ?)
+#	Create a table with ACF & PACF values
+#	Check if stationay (level, 1st differencem 2nd difference)
+
+# Modeling verifications to include (as summary dict attribute?):
+#	Coefficients:
+#		coeff_value (include sigma (sigma2**0.5), t-statistics, Prob & bool -> if null hypothesis can be reglect
+#	Regression itselft:
+#		Min Coeff t-statistics & Max coeeff Prob
+#		Max Coeff t-statistics & Min coeeff Prob
+#		R adjusted
+#		Bool -> all coefficients reglect null hypothesis
+#		AIC
+#		Schwarz criterion
+#		Durbin-Watson stat (investigate this)
+#	Residuals:
+#		mean / std of residuals
+#		Check that we cannot regrest null hyphotesis for ACF of residual (Q-Stat & Prob)
+#		Heteroskedasticity Investigate**
+#		Prob(H) Investigate**
+
+#	Selection dict
+#		All coefficients can reglect null hyphotesis
+#		Residuals can reglect null hyphotesis
+
+
+
+https://www.statsmodels.org/stable/tsa.html
+
+# ARMA:
+https://www.statsmodels.org/stable/examples/notebooks/generated/tsa_arma_1.html
