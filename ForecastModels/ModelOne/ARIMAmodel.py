@@ -4,11 +4,16 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import statsmodels.api as sm_
+from statsmodels.tools.sm_exceptions import ValueWarning
 from statsmodels.tsa.arima.model import ARIMA
+import warnings
 
 
 class ARIMAmodel(object):
     def __init__(self, data_df, order, seasonal_order=(0, 0, 0, 0)):
+        warnings.filterwarnings("ignore", category=ValueWarning)
+        warnings.filterwarnings("ignore", category=FutureWarning)
+
         self.data_df = data_df.copy()
         self.order = order
         self.seasonal_order = seasonal_order
