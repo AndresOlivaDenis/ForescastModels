@@ -12,7 +12,8 @@ from ForecastModels.ModelOne.ARIMASelCriteriaEnum import ARIMASelCriteriaEnum
 from ForecastModels.ModelOne.ARIMAmodel import ARIMAmodel
 
 max_ar, max_ma = 4, 2
-default_order_list = [(1, 0, 0), (2, 0, 0), (3, 0, 0), (4, 0, 0), (5, 0, 0), (6, 0, 0),
+default_order_list = [(0, 0, 0),
+                      (1, 0, 0), (2, 0, 0), (3, 0, 0), (4, 0, 0), (5, 0, 0), (6, 0, 0),
                       (0, 0, 1), (0, 0, 2), (0, 0, 3), (0, 0, 4)]
 default_order_list += [(i, 0, j) for i in range(1, max_ar + 1) for j in range(1, max_ma + 1)]
 

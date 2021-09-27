@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import statsmodels.api as sm_
+from ForecastModels.ModelOne.toDos.DataTransformations import DataTransformations
 from statsmodels.tools.sm_exceptions import ValueWarning
 from statsmodels.tsa.arima.model import ARIMA
 import warnings
@@ -48,22 +49,11 @@ class ARIMAmodel(object):
     # ----------------------------------------------------------------------------------------------------------------
     @staticmethod
     def plot_correlogram(data_df, lags=20, alpha=5. / 100):
-        fig, [ax1, ax2] = plt.subplots(2, 1, sharex=True)
-        sm_.graphics.tsa.plot_acf(data_df, lags=lags, ax=ax1, alpha=alpha)
-        sm_.graphics.tsa.plot_pacf(data_df, lags=lags, ax=ax2, alpha=alpha)
+        DataTransformations.get_correlogram_df(data_df, lags=lags, alpha=alpha)
 
     @staticmethod
     def get_correlogram_df(data_df, lags=20, alpha=5. / 100):
-        acf, acf_confint, acf_qstat, acf_pvalues = sm_.tsa.stattools.acf(data_df, nlags=lags, qstat=True, alpha=alpha)
-        pacf, pacf_confint = sm_.tsa.stattools.pacf(data_df, nlags=lags, alpha=alpha)
-        acf_pacf_dict = dict(lag=list(range(1, lags + 1)),
-                             acf=acf[1:],
-                             pacf=pacf[1:],
-                             qstat=acf_qstat,
-                             pvalues=acf_pvalues)
-        correlogram_df = pd.DataFrame(acf_pacf_dict)
-        correlogram_df["null_hypothesis_reject"] = correlogram_df["pvalues"] < alpha
-        return correlogram_df
+        return DataTransformations.get_correlogram_df(data_df, lags=lags, alpha=alpha)
 
     @staticmethod
     def fit_ARIMA_model(data_df, order, seasonal_order=(0, 0, 0, 0)):

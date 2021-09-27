@@ -2,6 +2,7 @@ import pandas as pd
 import os
 from statsmodels.tsa.stattools import adfuller
 from statsmodels.tsa.stattools import kpss
+import warnings
 
 
 class StationarityTests(object):
@@ -50,6 +51,19 @@ class StationarityTests(object):
 
         self.stationarity_summary = pd.Series(self.stationarity_summary)
 
+    def validate_stationarity(self, print_summary=True):
+        if print_summary:
+            print("\nTesting stationarity:\n")
+            print(self.stationarity_summary)
+            print("\n")
+            print(self.stationarity_summary.conclusion)
+
+        if self.stationarity_summary.is_not_stationary:
+            raise ValueError("ERROR! Series seems to be not stationary.")
+
+        if not self.stationarity_summary.is_stationary:
+            warnings.warn("WARNING! It has not been possible to verify that the series is stationary.")
+
     @staticmethod
     def adf_test(time_series):
         dftest = adfuller(time_series, autolag="AIC")
@@ -89,4 +103,5 @@ if __name__ == '__main__':
     # ====================================================================================================================
 
     stationarity_test_reer= StationarityTests(reer_mys_df)
-    print(stationarity_test_reer.stationarity_summary)
+    # print(stationarity_test_reer.stationarity_summary)
+    stationarity_test_reer.validate_stationarity()
