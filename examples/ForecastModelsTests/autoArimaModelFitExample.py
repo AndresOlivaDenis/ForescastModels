@@ -1,11 +1,14 @@
 import os
 import pandas as pd
+import statsmodels as sm
 
 from ForecastModels.ModelOne.ARIMAmodel import ARIMAmodel
 from ForecastModels.ModelOne.AutoARIMAmodel import AutoARIMAmodel
-from ForecastModels.ModelOne.StationarityTests import StationarityTests
+from ForecastModels.SeriesIdentification.StationarityTests import StationarityTests
 from ForecastModels.ModelOne.ARIMASelCriteriaEnum import ARIMASelCriteriaEnum
 
+from ForecastModels.DataProcessTools.dataProcessTools import load_FRED_data_df, compute_log_returns, \
+    compute_simple_returns
 
 # Data Loading ========================================================================================================
 
@@ -19,6 +22,15 @@ module3_data_PE_Rations_df = module3_data_PE_Rations_df.set_index(['dateid'])
 pe_saf_df = module3_data_PE_Rations_df['pe_saf'].dropna()
 
 time_series_df = pe_saf_df.copy()
+
+
+path_default_FRED = path_default + '/FRED'
+path_GDP_GNP = path_default_FRED + "/GDP_GNP"
+date_threshold_max_ = pd.to_datetime("2020-01-01 20:00:00")
+GDP_df = load_FRED_data_df(file_name='GDP.csv', path=path_GDP_GNP, date_threshold_max=date_threshold_max_)
+GDP_series = GDP_df["GDP"]
+GDP_log_ret = compute_log_returns(GDP_series)
+GDP_log_log_ret = compute_log_returns(GDP_log_ret)
 # =====================================================================================================================
 
 # Model identification ===============================================================================================
@@ -56,4 +68,7 @@ auto_ARIMA_model.best_model.plot_residuals_dignostic()
 print(auto_ARIMA_model.best_model.model_summary_series)
 print(auto_ARIMA_model.best_model.arma_coefficients_summary_df)
 # =====================================================================================================================
+
+sm_order_select_results = sm.tsa.x13.x13_arima_select_order(GDP_df)
+
 

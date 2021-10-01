@@ -13,6 +13,7 @@ class StationarityTests(object):
         self.kpss_test_output = StationarityTests.kpss_test(time_series)
 
         self.run_summary()
+        self.is_stationary = self.stationarity_summary["is_stationary"]
 
     def run_summary(self):
         self.stationarity_summary = dict()

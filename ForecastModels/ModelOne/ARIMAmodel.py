@@ -1,10 +1,8 @@
 import os
 import scipy.stats as st
-import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-import statsmodels.api as sm_
-from ForecastModels.ModelOne.toDos.DataTransformations import DataTransformations
+from ForecastModels.SeriesIdentification.SeriesTransformations import SeriesTransformations
 from statsmodels.tools.sm_exceptions import ValueWarning
 from statsmodels.tsa.arima.model import ARIMA
 import warnings
@@ -49,11 +47,11 @@ class ARIMAmodel(object):
     # ----------------------------------------------------------------------------------------------------------------
     @staticmethod
     def plot_correlogram(data_df, lags=20, alpha=5. / 100):
-        DataTransformations.get_correlogram_df(data_df, lags=lags, alpha=alpha)
+        SeriesTransformations.plot_correlogram(data_df, lags=lags, alpha=alpha)
 
     @staticmethod
     def get_correlogram_df(data_df, lags=20, alpha=5. / 100):
-        return DataTransformations.get_correlogram_df(data_df, lags=lags, alpha=alpha)
+        return SeriesTransformations.get_correlogram_df(data_df, lags=lags, alpha=alpha)
 
     @staticmethod
     def fit_ARIMA_model(data_df, order, seasonal_order=(0, 0, 0, 0)):
