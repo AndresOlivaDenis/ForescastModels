@@ -29,6 +29,8 @@ class SeriesTransformations(object):
         correlogram_df["null_hypothesis_reject"] = correlogram_df["pvalues"] < alpha
         return correlogram_df
 
+# CURRENTLY!:
+# END this & create a notebook example of making forecast (to later recap, when see chapter 4)
 # TODO 1:
 #   Apply data Transformations:
 #       Make it more normal & Stabilize the variance: Log and & Box-Cox transformations
